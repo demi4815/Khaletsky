@@ -1,9 +1,7 @@
 package vsu.labs;
 
 import org.apache.commons.math3.linear.*;
-
 import java.util.Arrays;
-
 import static org.apache.commons.math3.linear.MatrixUtils.createRealMatrix;
 
 public class Test
@@ -11,15 +9,17 @@ public class Test
     public static void test1()
     {
         int IER = 1;
+
         Khaletsky.n = 3;
         Khaletsky.s = 2;
+
         double[][] a = {{1, 0}, {0, 1}, {2, 1}};
         RealMatrix A = createRealMatrix(a);
         double[] f = {0, 0, 8};
+
         double[][] b1 = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
         double[][] b2 = {{2, 0, 0}, {0, 2, 0}, {0, 0, 1}};
         double[][] b3 = {{1, 0, 0}, {0, 1, 0}, {0, 0, 2}};
-
         RealMatrix Weight = createRealMatrix(b3);
 
         RealMatrix newA = Khaletsky.initNewA(A, Weight);
@@ -29,9 +29,10 @@ public class Test
         double[][] C = Khaletsky.initC(D);
         double[] Ysol = Khaletsky.solveY(B, newF);
         double[] Xsol = Khaletsky.solveX(C, Ysol);
-        System.out.println(Arrays.toString(Xsol));
         double p = Khaletsky.norm(A, Xsol, f);
-        System.out.println(p);
+
+        System.out.println("Solve = " + Arrays.toString(Xsol));
+        System.out.println("Norm = " + p);
         System.exit(IER);
     }
 
@@ -44,7 +45,7 @@ public class Test
             for (int eps = 1; eps <= 2; eps += 1)
             {
                 double abs = 0;
-                double p = 0;
+                //double p = 0;
                 for (int cnt = 0; cnt < 10; cnt++)
                 {
                     Khaletsky.n = n;
@@ -63,9 +64,9 @@ public class Test
                     double[] Xsol = Khaletsky.solveX(C, Ysol);
 
                     abs = abs + Khaletsky.accuracy(Xsol, x) / 10;
-                    p = p + Khaletsky.norm(A, Xsol, f) / 10;
+                    //p = p + Khaletsky.norm(A, Xsol, f) / 10;
                 }
-                System.out.println("N = " + n + ", A[i][j] from " +  -Math.pow(10, eps) + " to " + Math.pow(10, eps) + ", accuracy = " + abs + ", norm = " + p);
+                System.out.println("N = " + n + ", A[i][j] from " +  -Math.pow(10, eps) + " to " + Math.pow(10, eps) + ", accuracy = " + abs/* + ", norm = " + p*/);
             }
         }
         System.exit(IER);
@@ -207,7 +208,5 @@ public class Test
 
         System.exit(IER);
     }
-
-
 
 }

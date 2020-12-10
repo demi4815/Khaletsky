@@ -1,8 +1,6 @@
 package vsu.labs;
 
 import org.apache.commons.math3.linear.*;
-import java.util.ArrayList;
-
 import static org.apache.commons.math3.linear.MatrixUtils.createRealMatrix;
 
 public class Khaletsky
